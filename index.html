@@ -57,6 +57,16 @@
       color: #dc2626;
       font-size: 13px;
     }
+    .map-frame {
+      margin-top: 12px;
+      display: none;
+    }
+    iframe {
+      width: 100%;
+      height: 180px;
+      border: none;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -65,17 +75,37 @@
     <input type="text" id="password" placeholder="Şifre">
     <button onclick="checkPassword()">Giriş</button>
     <div id="error" class="error"></div>
+    <div class="map-frame" id="mapFrame">
+      <iframe id="map" loading="lazy" allowfullscreen></iframe>
+    </div>
   </div>
 
   <script>
     const PASSWORD = "41.081535, 29.071155"; // doğru şifre
-    const REDIRECT_URL = "https://open.spotify.com/playlist/6pYVSo5bzt2H0f3YQTvksZ?si=2z4hcjANSHi_wOw-bcrzbg&pi=P1Jvob_2QEK1_&pt=755cb544542800be676c321bff84b801"; // yönlendirilecek adres
+    const REDIRECT_URL = "https://open.spotify.com/playlist/6pYVSo5bzt2H0f3YQTvksZ?si=2z4hcjANSHi_wOw-bcrzbg&pi=P1Jvob_2QEK1_&pt=755cb544542800be676c321bff84b801"; 
 
     function checkPassword() {
-      const input = document.getElementById("password").value;
+      const input = document.getElementById("password").value.trim();
       const errorDiv = document.getElementById("error");
+      const mapFrame = document.getElementById("mapFrame");
+      const map = document.getElementById("map");
+
       if (input === PASSWORD) {
-        window.location.href = REDIRECT_URL;
+        errorDiv.textContent = "";
+        
+        // Google Maps Embed URL (koordinatlar)
+        const coords = PASSWORD.split(",");
+        const lat = coords[0].trim();
+        const lng = coords[1].trim();
+        map.src = `https://www.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
+        
+        // Haritayı göster
+        mapFrame.style.display = "block";
+
+        // 3 saniye sonra yönlendirme
+        setTimeout(() => {
+          window.location.href = REDIRECT_URL;
+        }, 3000);
       } else {
         errorDiv.textContent = "Şifre yanlış.";
       }

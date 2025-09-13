@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Çiçek Notu</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f9fafb;
+      font-family: Arial, sans-serif;
+    }
+    .box {
+      width: 280px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 18px;
+      color: #111827;
+      margin-bottom: 15px;
+    }
+    input,
+    button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    input {
+      border: 1px solid #d1d5db;
+      outline: none;
+    }
+    input:focus {
+      border-color: #6366f1;
+    }
+    button {
+      border: none;
+      background: #6366f1;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #4f46e5;
+    }
+    .error {
+      margin-top: 4px;
+      color: #dc2626;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Not için şifreyi girin</h1>
+    <input type="text" id="password" placeholder="Şifre">
+    <button onclick="checkPassword()">Giriş</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    const PASSWORD = "deneme123"; // doğru şifre
+    const REDIRECT_URL = "https://open.spotify.com/playlist/6GJEKlgP0z89slePGgTxXZ?si=vsurNO8kQTyslDA3yZQzBw&pi=-1HLGjO-R1K2R&pt=ac44b6de93925b4f3eb903b06e6f5de7"; // yönlendirilecek adres
+
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const errorDiv = document.getElementById("error");
+      if (input === PASSWORD) {
+        window.location.href = REDIRECT_URL;
+      } else {
+        errorDiv.textContent = "Şifre yanlış.";
+      }
+    }
+  </script>
+</body>
+</html>
